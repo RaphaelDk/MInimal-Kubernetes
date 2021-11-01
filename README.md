@@ -6,26 +6,26 @@ Minikube
 
 ### How to run
 
-Start minikube :
+Start minikube :  
 minikube start 
 
-Link docker / minikube :
+Link docker / minikube :  
 eval $(minikube docker-env)
 
-Build docker image :
+Build docker image :  
 cd minimal-express_app  
 npm install  
 docker build -t minimal-app .  
 
-Create Kubernetes components :
+Create Kubernetes components :  
 cd minimal-kubernetes  
 kubectl apply -f postgres-secret.yaml -f postgres.yaml -f postgres-config.yaml -f webapp.yaml
 
-Check if everything is good :
+Check if everything is good :  
 kubectl get all
 
-Get Minikube IP : 
+Get Minikube IP :  
 minikube ip
 
-Run app :
+Run app :  
 minikube_ip:32100

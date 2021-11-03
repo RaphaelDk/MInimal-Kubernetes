@@ -1,0 +1,16 @@
+echo "Starting minikube"
+minikube start
+
+echo "Connectiong minikube to docker" :
+eval $(minikube docker-env)
+
+echo "Building docker image" :
+docker build -t minimal-app ./minimal-app
+
+echo "Creating Kubernetes components"
+cd minimal-kubernetes
+kubectl apply -f postgres-secret.yaml -f postgres.yaml -f postgres-config.yaml -f webapp.yaml
+cd ..
+
+echo -e "\n\nMinikube IP :"
+minikube ip

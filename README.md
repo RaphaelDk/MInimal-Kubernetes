@@ -6,6 +6,10 @@ Minikube
 
 ### How to run
 
-run deploy.sh
+deploy.sh
 
-Go to minikube_ip:32100
+kubectl port-forward service/maitre-gims-service 3000:3000
+or
+kubectl port-forward service/angele-service 3000:3000
+
+Go to localhost:3000

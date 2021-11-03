@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maitre-gims-deployment
+  labels:
+    app: maitre-gims
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maitre-gims
+  template:
+    metadata:
+      labels:
+        app: maitre-gims
+    spec:
+      containers:
+        - name: maitre-gims
+          image: minimal-app
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_NAME
+              value: "Maitre Gims"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
+            - name: POSTGRES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maitre-gims-service
+spec:
+  selector:
+    app: maitre-gims
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

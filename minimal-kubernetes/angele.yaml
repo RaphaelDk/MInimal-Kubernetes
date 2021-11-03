@@ -1,26 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-deployment
+  name: angele-deployment
   labels:
-    app: webapp
+    app: angele
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapp
+      app: angele
   template:
     metadata:
       labels:
-        app: webapp
+        app: angele
     spec:
       containers:
-        - name: webapp
+        - name: angele
           image: minimal-app
           imagePullPolicy: Never
           ports:
             - containerPort: 3000
           env:
+            - name: APP_NAME
+              value: "Angèle"
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
@@ -40,13 +42,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp-service
+  name: angele-service
 spec:
-  type: NodePort
   selector:
-    app: webapp
+    app: angele
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-      nodePort: 32100

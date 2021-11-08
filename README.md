@@ -1,15 +1,15 @@
 # Kubernetes
 
 ### Prerequisite
+
 Docker
 Minikube
+Helm
 
 ### How to run
 
 deploy.sh
 
-kubectl port-forward service/maitre-gims-service 3000:3000
-or
-kubectl port-forward service/angele-service 3000:3000
+export PROXY_IP=$(minikube service <release-name>-kong-proxy --url | head -1)
 
-Go to localhost:3000
+kubectl apply -f kic/ingress.yaml

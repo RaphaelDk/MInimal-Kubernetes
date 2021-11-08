@@ -1,13 +1,17 @@
-echo "Starting minikube"
+echo -e "\nStarting minikube"
 minikube start
 
-echo "Connectiong minikube to docker" :
+echo -e "\nConnectiong minikube to docker" :
 eval $(minikube docker-env)
 
-echo "Building docker image" :
-docker build -t minimal-app ./minimal-app
+echo -e "\nBuilding docker image" :
+docker build -t webapp ./app
 
-echo "Creating Kubernetes components"
-cd minimal-kubernetes
-kubectl apply -f postgres-secret.yaml -f postgres.yaml -f postgres-config.yaml -f maitre-gims.yaml -f angele.yaml
-cd ..
+echo -e "\nCreating Kubernetes components"
+kubectl apply -f kubernetes/postgres-secret.yaml -f kubernetes/postgres.yaml -f kubernetes/postgres-config.yaml -f kubernetes/maitre-gims.yaml -f kubernetes/angele.yaml
+
+echo -e "\nDeploying KIC"
+helm repo add kong https://charts.konghq.com
+helm repo update
+helm install kong/kong --generate-name --set ingressController.installCRDs=false
+

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: angele
-          image: minimal-app
+          image: webapp
           imagePullPolicy: Never
           ports:
             - containerPort: 3000
@@ -50,3 +50,4 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+

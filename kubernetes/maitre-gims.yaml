@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: maitre-gims
-          image: minimal-app
+          image: webapp
           imagePullPolicy: Never
           ports:
             - containerPort: 3000
